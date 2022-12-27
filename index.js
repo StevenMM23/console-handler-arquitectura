@@ -1,7 +1,8 @@
 //Read Files
 const fs = require("fs");
-
-const myDate = fs.readFileSync("./myJSON.json");
+let myJsonName = "/myJSON.json"
+const JsonPath = __dirname + myJsonName
+const myDate = fs.readFileSync(JsonPath)
 const myDataParse = JSON.parse(myDate);
 
 //Get All Screens
@@ -27,12 +28,24 @@ function getScreenByButton(button) {
   return screenValidator(myScreen);
 }
 
+//Get Screen by screen name
+function getScreenByName(screenName) { 
+  const AllScreens = getAllScreens();
+  const myScreenByName = [];
+  AllScreens.forEach((element) => { 
+    if(screenName.toLowerCase() == element.name.toLowerCase())
+      myScreenByName.push(element)
+  })
+
+  return screenValidator(myScreenByName)
+}
+
 // Validate Screens
 function screenValidator(myScreen) {
   if (myScreen.length == 1) return myScreen;
   if (myScreen.length == 0) return "Not found !";
 
-  return "We detect 2 or more screens with the same button name, please change it !";
+  return "We detect 2 or more screens with the same button name or screen name, please change it !";
 }
 
 // Get OtherScreen
@@ -45,8 +58,8 @@ function getOptions(button) {
     });
   });
 
-  options.forEach(({title, button}) => { 
-    console.log(` *) ${title} -------> Button: ${button}`)
+  options.forEach(({title, button: {name}}) => { 
+    console.log(` *) ${title} -------> Button: ${name}`)
   })
 }
 
@@ -61,6 +74,21 @@ function getQuestions(button) {
   return myQuestions;
 }
 
+//Get Handler by Button
+function GetHandlerByButton(buttonName) { 
+  const principalScreen = getScreenByButton("principal");
+  let handler = ""
+
+  principalScreen.forEach(({content: {OtherScreens}}) => { 
+    OtherScreens.forEach(({button}) => { 
+      if(buttonName.toLowerCase() == button.name.toLowerCase())
+        handler = button.handler
+    })
+  })
+
+  return handler;
+}
+
 module.exports = { 
-    screenValidator, getOptions, getAllScreens, getScreenByButton, getQuestions
+    screenValidator, getOptions, getAllScreens, getScreenByButton, getQuestions, GetHandlerByButton, getScreenByName
 }
