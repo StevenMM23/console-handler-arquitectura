@@ -1,7 +1,8 @@
 //Read Files
 const fs = require("fs");
-
-const myDate = fs.readFileSync("./myJSON.json");
+let myJsonName = "/myJSON.json"
+const JsonPath = __dirname + myJsonName
+const myDate = fs.readFileSync(JsonPath)
 const myDataParse = JSON.parse(myDate);
 
 //Get All Screens
@@ -61,6 +62,7 @@ function getQuestions(button) {
   return myQuestions;
 }
 
+console.log(getAllScreens())
 module.exports = { 
     screenValidator, getOptions, getAllScreens, getScreenByButton, getQuestions
 }
