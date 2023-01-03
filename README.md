@@ -2,7 +2,7 @@
 
 To install the package you need to open the terminal of your code editor and run the command npm.
 
-    npm install console-handler-arquitectura
+        npm install console-handler-arquitectura
 	const consoleHandler = require("console-handler-arquitectura")
 
 ## Documentation
@@ -137,3 +137,20 @@ With this function we can obtain access to the list of other screens that a scre
           "button": { "name": "ex", "handler": "exit", "callScreen": "" }
         }
     ]
+
+- **getOptionsColor(color, button)**
+
+With this function we can obtain access to the list of other screens that a screen has and decide witch color you want to display
+
+- **consoleLogColor(color, text)**
+
+This function allows us to print in the console the text that we want next to the color that has been selected.
+
+- **exportToJSON(nameFile, data)**
+
+With this function we can export the data to a JSON file. 
+
+- **changePathJSON(oldPath, newPath)**
+
+With this function we can move the exported file to the place of our preference, also it will create a history with the location where the file was moved to.
+
